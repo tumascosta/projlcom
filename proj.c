@@ -5,15 +5,13 @@
 #include "video.h"
 #include "mouse.h"
 
+int (kbc_subscribe_int)(uint8_t *irq_set);
+int (kbc_unsubscribe_int)();
+
 // --- DECLARAÇÕES EXTERNAS DE VARIÁVEIS DOS TEUS LABS ---
 extern uint8_t scancode;
 extern bool scancode_ready;
 extern uint32_t timer_counter;
-
-// --- ASSINATURAS MANUAIS NECESSÁRIAS ---
-// (Não declaramos as funções _ih() aqui porque o lcf.h já faz isso por macro)
-int kbc_subscribe_int(uint8_t *irq_set);
-int kbc_unsubscribe_int();
 
 int main(int argc, char *argv[]) {
   lcf_start(argc, argv);
