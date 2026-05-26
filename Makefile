@@ -1,7 +1,7 @@
-PROG = Tomb of MINIX
+PROG = projeto
+SRCS = proj.c video.c mouse.c kbc.c timer.c utils.c
 
-SRCS = proj.c lab5/video.c lab4/mouse.c kbc.c timer.c
-
-CFLAGS += -I. -I./lab5 -I./lab4 -Wall
+DPADD += ${LIBLCF}
+LDADD += -llcf
 
 .include <minix.lcom.mk>
