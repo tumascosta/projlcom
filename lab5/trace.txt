@@ -1,0 +1,30 @@
+@lcflib.a:2019, lcf_start
+  video_test_rectangle(mode, x, y, width, height, color)
+> video_test_rectangle(0x105, 50, 50, 100, 80, 0x0000000f [15])
+  @lab5.c:38, video_test_rectangle
+    vg_init(mode)
+  > vg_init(0x105)
+    @video.c:36, vg_init
+      vbe_get_mode_info(mode, &mode_info)
+    > vbe_get_mode_info(0x105, addr: 0x81ff3d8)
+    < vbe_get_mode_info(0x105, addr: 0x81ff3d8 [0xe0000000, 1024x768, Indexed (8 BPP) <768 KiB>]) -> (ret: 0)
+    @video.c:51, vg_init
+      sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)
+    > sys_privctl(SELF, SYS_PRIV_ADD_MEM, addr: 0xeffff5c0 [0xe0000000 - 0xe00c0000 <768 KiB>])
+    < sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr) -> (ret: 0)
+    @video.c:54, vg_init
+      vm_map_phys(SELF, (void *) mr.mr_base, vram_size)
+    < vm_map_phys(SELF, addr: 0xe0000000, 768 KiB) -> (ret: 0xef93b000)
+    @video.c:26, set_graphics_mode
+      sys_int86(&r)
+    > sys_int86(addr: 0xeffff5c8 [AX: 4f02, BX: 4105, CX: 0000, DX: 0000, ES: 0000, DI: 0000])
+    < sys_int86(addr: 0xeffff5c8 [AX: 004f, BX: 4105, CX: 0000, DX: 0000, ES: 0000, DI: 0000]) -> (ret: 0)
+  < vg_init(0x105) -> (ret: 0xef93b000)
+  @lab5.c:41, video_test_rectangle
+    vg_draw_rectangle(x, y, width, height, color)
+  > vg_draw_rectangle(50, 50, 100, 80, 0x0000000f [15])
+  < vg_draw_rectangle(50, 50, 100, 80, 0x0000000f [15]) -> (ret: 0)
+  @lab5.c:46, video_test_rectangle
+    vg_exit()
+  < vg_exit() -> (ret: 0)
+< video_test_rectangle(0x105, 50, 50, 100, 80, 0x0000000f [15]) -> (ret: 0)
